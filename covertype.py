@@ -56,7 +56,7 @@ for it in range(130000):
         
         optimizer.zero_grad()
         output, Mlist, dlist = TN(x)
-        loss = criterion(m(output),y) + lam_sparse*TN.L_sparse(Mlist)
+        loss = criterion(output,y) + lam_sparse*TN.L_sparse(Mlist)
         loss.backward()
         optimizer.step()
 
@@ -66,6 +66,7 @@ for it in range(130000):
     
         if len(dataloader)*it+i % 500 == 1:
             scheduler.step()
+            torch.save(TN.state_dict(), './model/TabNet_'+str(len(dataloader)*it+i)+'.pth')
         
     if it % 1 == 0:
         all_BA = []

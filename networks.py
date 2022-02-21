@@ -130,7 +130,7 @@ class TabNet(nn.Module):
     def forward(self, x):
         Mlist = []
         dlist = []
-        prior_scale = torch.ones((self.batch_size, self.input_size),device=self.device)
+        prior_scale = torch.ones((x.size(0), self.input_size),device=self.device)
             
         bn_x = self.bn(x)
         _, a = self.FTsteps[0](bn_x)
